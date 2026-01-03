@@ -1,0 +1,192 @@
+/* Bulma Customizations and Global Styles */
+
+:root {
+  --primary: #4361ee;
+  --primary-light: #eef2ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --dark: #1e293b;
+  --light: #f8fafc;
+}
+
+/* Custom Font */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom Button Styles */
+.button {
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.button.is-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.button.is-primary:hover {
+  background-color: #3a56d4;
+  border-color: #3a56d4;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+}
+
+.button.is-light {
+  background-color: var(--light);
+}
+
+/* Card Hover Effects */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Navbar */
+.navbar.is-primary {
+  background-color: var(--primary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-item {
+  font-weight: 500;
+}
+
+/* Custom Progress Bar */
+.progress::-webkit-progress-bar {
+  background-color: #e2e8f0;
+  border-radius: 9999px;
+}
+
+.progress::-webkit-progress-value {
+  background-color: var(--primary);
+  border-radius: 9999px;
+}
+
+.progress::-moz-progress-bar {
+  background-color: var(--primary);
+  border-radius: 9999px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Status Badges */
+.tag.is-success {
+  background-color: var(--success);
+}
+
+.tag.is-warning {
+  background-color: var(--warning);
+}
+
+.tag.is-danger {
+  background-color: var(--danger);
+}
+
+.tag.is-info {
+  background-color: var(--primary);
+}
+
+/* Custom Box Shadows */
+.box {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+  transition: box-shadow 0.2s ease;
+}
+
+.box:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Form Field Focus */
+.input:focus, .textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.125em rgba(67, 97, 238, 0.25);
+}
+
+/* Task Status Colors */
+.has-background-success-light {
+  background-color: #d1fae5 !important;
+  border-left: 4px solid var(--success);
+}
+
+.has-background-warning-light {
+  background-color: #fef3c7 !important;
+  border-left: 4px solid var(--warning);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .navbar-menu {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+  }
+  
+  .card-footer-item {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .title {
+    font-size: 1.5rem !important;
+  }
+  
+  .subtitle {
+    font-size: 1rem !important;
+  }
+}
+
+/* Animation for Notifications */
+.notification {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
