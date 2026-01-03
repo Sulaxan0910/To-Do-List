@@ -20,7 +20,6 @@ const allowedOrigins = [
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
-    console.log('Incoming Origin:', origin);
 
     // Allow non-browser clients (Postman, curl)
     if (!origin) return callback(null, true);
