@@ -6,16 +6,33 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 const CLIENT_URL = process.env.CLIENT_URL;
 
 // Middleware
-app.use(cors({
-  origin: CLIENT_URL,
-  credentials: true
-}));
 app.use(express.json());
+const allowedOrigins = [
+  'http://localhost:3000',
+  CLIENT_URL,
+];
+
+app.set('trust proxy', true);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error('CORS not allowed'));
+    },
+    credentials: true,
+  })
+);
+
+app.options('*', cors());
+
 
 // Routes
 app.use('/api/auth', authRoutes);
