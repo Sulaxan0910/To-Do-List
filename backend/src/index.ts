@@ -10,33 +10,36 @@ const PORT = process.env.PORT || 5000;
 const CLIENT_URL = process.env.CLIENT_URL;
 
 // Middleware
-app.use(express.json());
+app.set('trust proxy', true);
+
 const allowedOrigins = [
   'http://localhost:3000',
+  'https://transcendent-malasada-81f486.netlify.app',
   CLIENT_URL,
 ];
 
-app.set('trust proxy', true);
+const corsOptions: cors.CorsOptions = {
+  origin: (origin, callback) => {
+    console.log('Incoming Origin:', origin);
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      console.log('Incoming Origin:', origin);
+    // Allow non-browser clients (Postman, curl)
+    if (!origin) return callback(null, true);
 
-      if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
 
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
+    return callback(new Error(`CORS not allowed: ${origin}`));
+  },
+  credentials: true,
+};
 
-      return callback(new Error(`CORS not allowed: ${origin}`));
-    },
-    credentials: true,
-  })
-);
+// ✅ CORS FIRST
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
-
-app.options('*', cors());
+// ✅ THEN body parser
+app.use(express.json());
 
 
 // Routes
