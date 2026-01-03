@@ -7,10 +7,11 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: CLIENT_URL,
   credentials: true
 }));
 app.use(express.json());
@@ -41,6 +42,6 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`API available at http://localhost:${PORT}/api`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
+  console.log(`API available at ${CLIENT_URL}:${PORT}/api`);
+  console.log(`Health check: ${CLIENT_URL}:${PORT}/api/health`);
 });
