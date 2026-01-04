@@ -9,7 +9,7 @@ const connectDB = async () => {
     const mongoURI = process.env.MONGO_URI as string;
     console.log(mongoURI);
     
-    const conn = await mongoose.connect(mongoURI);
+    const conn = await mongoose.connect('mongodb+srv://sulaxan_db_user:yG8WgaVgdUdrRBsN@personalcluster.l5um6mh.mongodb.net/todo-app?retryWrites=true&w=majority');
     
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     
