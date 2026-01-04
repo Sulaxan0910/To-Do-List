@@ -2,7 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import taskRoutes from './routes/taskRoutes';
 import authRoutes from './routes/authRoutes';
+import connectDB from './db/connect';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+
 dotenv.config();
 
 const app = express();
@@ -20,7 +23,6 @@ const allowedOrigins = [
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
-
     // Allow non-browser clients (Postman, curl)
     if (!origin) return callback(null, true);
 
@@ -40,7 +42,6 @@ app.options('*', cors(corsOptions));
 // ✅ THEN body parser
 app.use(express.json());
 
-
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
@@ -50,9 +51,11 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
-    service: 'Todo API'
+    service: 'Todo API',
+    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected' // Add DB status
   });
 });
+
 let logged = false;
 
 app.use((req, res, next) => {
@@ -65,7 +68,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
@@ -77,6 +79,18 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Connect to MongoDB and start server
+const startServer = async () => {
+  try {
+    await connectDB();
+    
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to connect to MongoDB', error);
+    process.exit(1);
+  }
+};
+
+startServer();

@@ -2,9 +2,17 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserModel } from '../models/User';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
-const JWT_EXPIRES_IN = '7d';
+const JWT_EXPIRES_IN = '1d';
+
+// Helper function to remove password from user object
+const removePassword = (user: any) => {
+  const { password, ...userWithoutPassword } = user;
+  return userWithoutPassword;
+};
 
 export const authController = {
   // Register new user
@@ -25,14 +33,11 @@ export const authController = {
         return res.status(400).json({ error: 'User already exists' });
       }
 
-      // Hash password
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Create user
+      // Create user (password will be hashed by the pre-save hook in the model)
       const user = await UserModel.create({
         username,
         email,
-        password: hashedPassword
+        password // This will be hashed automatically
       });
 
       // Generate JWT token
@@ -43,9 +48,8 @@ export const authController = {
       );
 
       // Return user info (without password) and token
-      const { password: _, ...userWithoutPassword } = user;
       res.status(201).json({
-        user: userWithoutPassword,
+        user: removePassword(user),
         token
       });
     } catch (error) {
@@ -85,9 +89,8 @@ export const authController = {
       );
 
       // Return user info (without password) and token
-      const { password: _, ...userWithoutPassword } = user;
       res.json({
-        user: userWithoutPassword,
+        user: removePassword(user),
         token
       });
     } catch (error) {
@@ -111,8 +114,7 @@ export const authController = {
         return res.status(404).json({ error: 'User not found' });
       }
 
-      const { password, ...userWithoutPassword } = userData;
-      res.json(userWithoutPassword);
+      res.json(removePassword(userData));
     } catch (error) {
       console.error('Get profile error:', error);
       res.status(500).json({ error: 'Failed to get profile' });
@@ -134,9 +136,8 @@ export const authController = {
         { expiresIn: JWT_EXPIRES_IN }
       );
 
-      const { password: _, ...userWithoutPassword } = user;
       res.json({
-        user: userWithoutPassword,
+        user: removePassword(user),
         token
       });
     } catch (error) {
