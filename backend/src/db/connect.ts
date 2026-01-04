@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const connectDB = async () => {
   try {
     const mongoURI = process.env.MONGO_URI as string;
+    console.log(mongoURI);
     
     const conn = await mongoose.connect(mongoURI);
     
