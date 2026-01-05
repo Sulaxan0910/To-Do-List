@@ -41,7 +41,7 @@ const EditTask: React.FC = () => {
           <div className="navbar-brand">
             <button 
               onClick={handleBackClick}
-              className="navbar-item"
+              className="navbar-item has-text-white"
               style={{ 
                 background: 'none', 
                 border: 'none', 
