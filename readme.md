@@ -16,47 +16,26 @@ cd todo-app
 cd backend
 
 # Install dependencies
-npm install express cors bcryptjs jsonwebtoken mongoose dotenv
-npm install -D typescript @types/express @types/cors @types/bcryptjs @types/jsonwebtoken @types/node ts-node-dev
-
-# Create tsconfig.json (copy-paste this content)
-cat > tsconfig.json << 'EOF'
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "lib": ["ES2020"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
-}
-EOF
+npm install
 
 # Create .env file for backend
-cat > .env << 'EOF'
+```
+**Create a file named `.env` in the `backend` directory with this content:**
+```
+# Server
 NODE_ENV=development
 PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/todo-app?retryWrites=true&w=majority
-JWT_SECRET=todo_list_super_secret_key_change_this
+
+# Database
+MONGO_URI=mongodb://localhost:27017/todo-app
+
+# Auth
+JWT_SECRET=todo_list_super_secret_key
 JWT_EXPIRES_IN=1d
+
+# CORS
 CLIENT_URL=http://localhost:3000
-EOF
-
-# Update package.json scripts (add these if not present)
-# Add this to the "scripts" section of your package.json:
-# "dev": "ts-node-dev src/index.ts",
-# "start": "node dist/index.js",
-# "build": "tsc"
-
-# Create folder structure
-mkdir -p src/{controllers,models,middleware,routes,config}
+```
 
 # Build backend
 npm run build
@@ -71,17 +50,19 @@ npm run dev
 cd ../frontend
 
 # Install dependencies
-npm install axios react-router-dom
+npm install
 
 # Create .env file for frontend
-cat > .env << 'EOF'
+```
+**Create a file named `.env` in the `frontend` directory with this content:**
+```
+# App
 REACT_APP_NAME=ToDoList
 REACT_APP_ENV=development
-REACT_APP_API_BASE_URL=http://localhost:5000/api
-EOF
 
-# Create folder structure
-mkdir -p src/{components,pages,context,services,types,utils}
+# API
+REACT_APP_API_BASE_URL=http://localhost:5000/api
+```
 
 # Start frontend (in a new terminal)
 npm start
@@ -113,52 +94,24 @@ echo.
 pause
 ```
 
-### **5. Start Both Servers (Mac/Linux Script)**
-Create `start.sh` in the project root:
+## **🔧 IMPORTANT: MongoDB Setup**
+
+**You need MongoDB running locally:**
+
+### **Option 1: Install MongoDB Community Edition**
+1. Download and install MongoDB from: https://www.mongodb.com/try/download/community
+2. Run MongoDB as a service or manually start it
+
+### **Option 2: Use Docker**
 ```bash
-#!/bin/bash
-echo "🚀 Starting To-Do List Application..."
-echo ""
-
-echo "📦 Starting backend server..."
-cd backend
-npm run dev &
-
-echo "⏳ Waiting for backend to initialize..."
-sleep 5
-
-echo "⚛️  Starting frontend server..."
-cd ../frontend
-npm start &
-
-echo ""
-echo "✅ Application is running!"
-echo "🌐 Backend: http://localhost:5000"
-echo "🌐 Frontend: http://localhost:3000"
-echo ""
-echo "📝 Use demo account:"
-echo "   Email: demo@example.com"
-echo "   Password: demo123"
-echo ""
-echo "Press Ctrl+C to stop servers"
-wait
+# Run MongoDB in Docker
+docker run -d -p 27017:27017 --name mongodb mongo
 ```
 
-Make it executable:
-```bash
-chmod +x start.sh
-```
-
-## **🔧 IMPORTANT: Update MongoDB Connection**
-
-**You MUST update the MONGO_URI in backend/.env:**
-
-1. Get your MongoDB Atlas connection string or use local MongoDB
-2. Replace this line in backend/.env:
-   ```
-   MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/todo-app?retryWrites=true&w=majority
-   ```
-3. With your actual connection string
+### **Option 3: MongoDB Atlas (Cloud)**
+If using MongoDB Atlas cloud database:
+1. Replace the `MONGO_URI` in `backend/.env` with your Atlas connection string
+2. Format: `mongodb+srv://<username>:<password>@cluster.mongodb.net/todo-app?retryWrites=true&w=majority`
 
 ## **✅ Quick Test**
 ```bash
@@ -173,20 +126,18 @@ curl http://localhost:5000/api/health
 
 If you get errors:
 
-```bash
-# 1. Clear node_modules and reinstall
-rm -rf node_modules package-lock.json
+```batch
+:: 1. Clear node_modules and reinstall
+rmdir /s /q node_modules
+del package-lock.json
 npm install
 
-# 2. Port already in use (Windows)
+:: 2. Port already in use
 netstat -ano | findstr :5000
 taskkill /PID <PID> /F
 
-# 3. Port already in use (Mac/Linux)
-lsof -i :5000
-kill -9 <PID>
-
-# 4. CORS errors - restart both servers after updating .env files
+:: 3. MongoDB not running
+:: Make sure MongoDB is running on port 27017
 ```
 
 ## **📝 Environment Variables Summary**
@@ -194,8 +145,8 @@ kill -9 <PID>
 **Backend (.env):**
 ```
 PORT=5000
-MONGO_URI=your_mongodb_connection_here
-JWT_SECRET=your_secret_key
+MONGO_URI=mongodb://localhost:27017/todo-app
+JWT_SECRET=todo_list_super_secret_key
 CLIENT_URL=http://localhost:3000
 ```
 
@@ -205,12 +156,15 @@ REACT_APP_API_BASE_URL=http://localhost:5000/api
 ```
 
 ## **🎯 One-Liner to Start Everything (After Setup)**
-```bash
-# Open two terminals and run:
-# Terminal 1:
-cd backend && npm run dev
+Open two command prompts and run:
 
-# Terminal 2:
+**Command Prompt 1:**
+```batch
+cd backend && npm run dev
+```
+
+**Command Prompt 2:**
+```batch
 cd frontend && npm start
 ```
 

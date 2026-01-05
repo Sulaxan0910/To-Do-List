@@ -20,7 +20,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
         <div className="hero-body">
           <div className="container has-text-centered">
             <div className="loading-spinner mb-4"></div>
-            <p className="title is-5 has-text-grey">Loading your tasks...</p>
+            <p className="title is-5 has-text-grey">Loading your To-Do List...</p>
             <p className="subtitle is-6 has-text-grey-light">
               Please wait while we prepare your dashboard
             </p>

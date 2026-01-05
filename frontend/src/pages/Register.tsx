@@ -68,8 +68,8 @@ const Register: React.FC = () => {
                 <div className="icon is-large has-text-primary mb-3">
                   <i className="fas fa-tasks fa-2x"></i>
                 </div>
-                <h1 className="title is-3">Join TaskFlow</h1>
-                <p className="subtitle is-6 has-text-grey">Start managing your tasks effectively</p>
+                <h1 className="title is-3">Join To-Do List</h1>
+                <p className="subtitle is-6 has-text-grey">Start managing your To-Do List effectively</p>
               </div>
 
               {/* Register Card */}

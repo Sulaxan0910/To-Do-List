@@ -141,7 +141,7 @@ const TaskList: React.FC<TaskListProps> = ({ filters, onTaskUpdate }) => {
     return (
       <div className="has-text-centered py-6">
         <div className="loading-spinner mb-3"></div>
-        <p className="has-text-grey">Loading your tasks...</p>
+        <p className="has-text-grey">Loading your To-Do List...</p>
       </div>
     );
   }
@@ -244,14 +244,9 @@ const TaskList: React.FC<TaskListProps> = ({ filters, onTaskUpdate }) => {
                         <div className="level is-mobile mb-2">
                           <div className="level-left" style={{ minWidth: 0, flex: 1 }}>
                             <p 
-                              className={`title is-5 task-title-truncate ${task.status === 'completed' ? 'has-text-grey' : ''}`}
+                              className={`title is-5 task-title-truncate has-text-grey`}
                               title={task.title}
                             >
-                              {task.status === 'completed' && (
-                                <span className="icon is-small has-text-success mr-2">
-                                  <i className="fas fa-check"></i>
-                                </span>
-                              )}
                               {task.title}
                             </p>
                           </div>

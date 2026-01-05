@@ -11,7 +11,7 @@ const Home: React.FC = () => {
         <div className="hero-body">
           <div className="container has-text-centered">
             <div className="loading-spinner mb-4"></div>
-            <p className="title is-5 has-text-grey">Loading TaskFlow...</p>
+            <p className="title is-5 has-text-grey">Loading To-Do List...</p>
           </div>
         </div>
       </section>

@@ -70,7 +70,7 @@ const Login: React.FC = () => {
                 <div className="icon is-large has-text-primary mb-3">
                   <i className="fas fa-tasks fa-2x"></i>
                 </div>
-                <h1 className="title is-3">TaskFlow</h1>
+                <h1 className="title is-3">To-Do List</h1>
                 <p className="subtitle is-6 has-text-grey">Your personal productivity companion</p>
               </div>
 
@@ -159,7 +159,7 @@ const Login: React.FC = () => {
                 
                 <div className="has-text-centered mt-5">
                   <p className="has-text-grey">
-                    New to TaskFlow?{' '}
+                    New to To-Do List?{' '}
                     <Link to="/register" className="has-text-primary has-text-weight-semibold">
                       Create an account
                     </Link>

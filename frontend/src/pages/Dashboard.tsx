@@ -116,12 +116,12 @@ const Dashboard: React.FC = () => {
         <div className="container">
           <div className="navbar-brand">
             <Link to="/dashboard" className="navbar-item">
-              <span className="ml-2 has-text-weight-bold is-size-5">TaskFlow</span>
+              <span className="ml-2 has-text-weight-bold is-size-5 has-text-white">To-Do List</span>
             </Link>
             
             <a 
               role="button" 
-              className={`navbar-burger has-text-black ${isMenuOpen ? 'is-active' : ''}`} 
+              className={`navbar-burger has-text-white ${isMenuOpen ? 'is-active' : ''}`} 
               aria-label="menu" 
               aria-expanded={isMenuOpen}
               onClick={toggleMenu}
@@ -135,13 +135,13 @@ const Dashboard: React.FC = () => {
 
           <div className={`navbar-menu ${isMenuOpen ? 'is-active' : ''}`}>
             <div className="navbar-start">
-              <Link to="/dashboard" className="navbar-item" onClick={() => setIsMenuOpen(false)}>
+              <Link to="/dashboard" className="navbar-item has-text-white" onClick={() => setIsMenuOpen(false)}>
                 <span className="icon">
                   <i className="fas fa-home"></i>
                 </span>
                 <span>Dashboard</span>
               </Link>
-              <Link to="/add" className="navbar-item" onClick={() => setIsMenuOpen(false)}>
+              <Link to="/add" className="navbar-item has-text-white" onClick={() => setIsMenuOpen(false)}>
                 <span className="icon">
                   <i className="fas fa-plus"></i>
                 </span>
@@ -152,7 +152,7 @@ const Dashboard: React.FC = () => {
             <div className="navbar-end">
               <div className={`navbar-item has-dropdown ${isUserDropdownOpen ? 'is-active' : ''}`}>
                 <a 
-                  className="navbar-link is-arrowless" 
+                  className="navbar-link is-arrowless has-text-white" 
                   onClick={toggleUserDropdown}
                   aria-haspopup="true" 
                   aria-expanded={isUserDropdownOpen}
@@ -237,13 +237,13 @@ const Dashboard: React.FC = () => {
                 <div>
                   <h1 className="title is-3 has-text-primary">Welcome back, {user?.username}! 👋</h1>
                   <p className="subtitle is-6 has-text-grey">
-                    Here's what's happening with your tasks today
+                    Here's what's happening with your To-Do List today
                   </p>
                 </div>
               </div>
               <div className="level-right">
                 <div className="buttons">
-                  <Link to="/add" className="button is-primary is-rounded">
+                  <Link to="/add" className="button is-primary is-rounded has-text-white">
                     <span className="icon">
                       <i className="fas fa-plus"></i>
                     </span>
@@ -309,7 +309,7 @@ const Dashboard: React.FC = () => {
               <div className="box">
                 <div className="level">
                   <div className="level-left">
-                    <h2 className="title is-4">Your Tasks</h2>
+                    <h2 className="title is-4">Your To-Do List</h2>
                   </div>
                   <div className="level-right">
                     <div className="tags has-addons">
@@ -333,7 +333,7 @@ const Dashboard: React.FC = () => {
       <footer className="footer">
         <div className="content has-text-centered">
           <p>
-            <strong>TaskFlow</strong> - A modern To-Do List application
+            <strong>To-Do List</strong> - A modern To-Do List application
           </p>
           <p className="is-size-7 has-text-grey mt-2">
             Built with React, TypeScript, and Bulma • © {new Date().getFullYear()}
