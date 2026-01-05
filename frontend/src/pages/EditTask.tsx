@@ -29,7 +29,7 @@ const EditTask: React.FC = () => {
       <nav className="navbar is-primary">
         <div className="container">
           <div className="navbar-brand">
-            <a href="/dashboard" className="navbar-item">
+            <a href="/" className="navbar-item">
               <span className="icon">
                 <i className="fas fa-arrow-left"></i>
               </span>
